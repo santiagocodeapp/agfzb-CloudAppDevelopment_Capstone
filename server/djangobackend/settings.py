@@ -27,12 +27,13 @@ DEBUG = True
 
 APPEND_SLASH = True
 
-ALLOWED_HOSTS = ["nessyapp.mybluemix.net"]
+ALLOWED_HOSTS = ["nessyapp.mybluemix.net", 'localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
     'djangoapp.apps.DjangoappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -125,3 +126,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 MEDIA_URL = '/media/'
+
+CRISPY_TEMPLATE_PACK = 'uni_form'

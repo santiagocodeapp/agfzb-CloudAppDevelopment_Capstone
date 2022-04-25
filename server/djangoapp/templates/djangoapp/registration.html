@@ -3,9 +3,46 @@
 <head>
     <meta charset="UTF-8">
     {% load static %}
+    {% load crispy_forms_tags %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-    <body>
+    <body style='padding: 30px;' >
     <!--Add a registration form here -->
+    <h1>Sign Up</h1>
+    <hr>
+    
+    {% if message %} 
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+      </div>
+    {% endif %}
+
+    <form action='{% url "djangoapp:register" %}' method='POST'>
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input placeholder='Enter Username' type="text" class="form-control" id="username" name='username' required>
+        </div>
+        <div class="mb-3">
+            <label for="first-name" class="form-label">First Name</label>
+            <input placeholder='Enter First Name' type="text" class="form-control" id="first-name" name='first-name' required>
+        </div>
+        <div class="mb-3">
+            <label for="last-name" class="form-label">Last Name</label>
+            <input placeholder='Enter Last Name' type="text" class="form-control" id="last-name" name='last-name' required>
+        </div>
+        <div class="mb-3">
+          <label for="password1" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password1" name='password1' required>
+        </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="password2" name='password2' required>
+        </div>
+        <button type="submit" class="btn btn-primary">SignUp</button>
+        <a href='{% url "djangoapp:index" %}' class="btn btn-danger">Cancel</a>
+      </form>
+
+
     </body>
 </html>
