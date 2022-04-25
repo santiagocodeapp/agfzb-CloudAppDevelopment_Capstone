@@ -7,9 +7,9 @@ env:
   IBM_CLOUD_REGION: us-south
   IBM_CLOUD_GROUP: default
   IBM_CLOUD_SPACE: dev
-  IBM_CLOUD_ORG:
+  IBM_CLOUD_ORG: santiago.codeapp@gmail.com
   MANIFEST_NAME: manifest.yml
-  IBM_CLOUD_API: ${{secrets.IBM_CLOUD_API_KEY}}
+  IBM_CLOUD_API: DSAHZRDKTsa6kznXg9-R3lx0IXduRIvSO-H9Bau0JG4i
 
 defaults:
   run:
