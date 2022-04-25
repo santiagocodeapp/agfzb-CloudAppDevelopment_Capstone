@@ -1,11 +1,11 @@
   applications:
   - name: djangoapp
     routes:
-      - route: santiagonessy.mybluemix.net
+      - route: nessyapp.mybluemix.net
     memory: 128M
     buildpack: python_buildpack
   - name: djangoapp-nginx
     routes:
-      - route: santiagonessy.mybluemix.net/static
+      - route: nessyapp.mybluemix.net/static
     memory: 128M
     buildpack: staticfile_buildpack
