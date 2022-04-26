@@ -1,0 +1,39 @@
+{% extends "MyReport/layout.html" %}
+
+
+{% block body %}
+
+<!-- Player Container Creator -->
+<div class="w3-row-padding w3-center w3-padding-64" id="pricing">
+    <h2>IMG {{ team }}</h2>
+    <p>Choose a player to write a report.</p><br>
+
+    
+    {% for player in players %}
+    <div class="w3-third w3-margin-bottom">
+        <ul class="w3-ul w3-border w3-hover-shadow">
+          <li class="w3-theme">
+            <p id="player-name" class="w3-xlarge">{{ player.first }} {{ player.last }}</p>
+            <p id="first" style="display: none;">{{ player.first }}</p>
+            <p id="last" style="display: none;">{{ player.last }}</p>
+            <p id="team" style="display: none;">{{ player.team }}</p>
+          </li>
+          <li class="w3-padding-16"><b>Commitedd:</b> N/A</li>
+          <li class="w3-padding-16">
+            <h2 id="player-position" class="w3-wide"> {{ player.player_positions }}</h2>
+            <span id="player-team" class="w3-opacity"> <strong id="img">IMG</strong> {{ team }}</span>
+          </li>
+          <li class="w3-theme-l5 w3-padding-24">
+            <button id="create-report" onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-teal w3-padding-large"><i class="fa-solid fa-file-invoice"></i> Create Report</button>
+          </li>
+        </ul>
+      </div>
+    {% empty %}
+    <!-- This Script will alert users that their is no players in the team and new player needs to be added -->
+      <script>
+        alert("There are no players available in this team. Add players in the NewPlayers tab.");
+        window.location.replace("{% url 'index' %}");
+      </script>
+    {% endfor %} 
+</div>
+{% endblock %}

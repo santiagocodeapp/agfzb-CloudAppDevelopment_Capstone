@@ -1,63 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "MyReport/layout.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Dealership Review</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
-    <script
-        src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+<!-- Block that will display updated list of teams for the Coach/add-team Modal -->
+{% block NewTeams %} 
 
-</head>
+  <div class="w3-section">
+    <label for="exampleDataList1" class="form-label"><strong>New</strong>Team:</label>
+    <input class="w3-input" list="datalistOptions1" id="exampleDataList1" placeholder="" name="new-team">
+    <datalist id="datalistOptions1">
+        {% for team in teams %} 
+        <option value="{{ team }}"></option>
+        {% endfor %} 
+    </datalist>
+</div>
 
-<body>
-    <!--Add a nav bar here -->
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <div class="d-flex justify-content-start">
-                <a href="{% url 'djangoapp:index' %}" class="navbar-brand"><strong>DealershipReview</strong></a>
-                <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About Us</a>
-                <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact Us</a>
+{% endblock %} 
+
+
+<!-- Block that will display updated list of teams for the Coach/add-player Modal -->
+{% block teams %}
+<div class="w3-section">
+    <label for="exampleDataList" class="form-label"><strong>Team:</strong></label>
+    <input class="w3-input" list="datalistOptions" id="exampleDataList" placeholder="" name="exampleDataList">
+    <datalist id="datalistOptions">
+      {% for team in teams %} 
+      <option value="{{ team }}"></option>
+      {% endfor %} 
+    </datalist>
+  </div>
+{% endblock %}
+
+
+{% block body %}
+
+<!-- Script that display message after adding new player to a team -->
+{% if message %}
+<script>
+    alert("You have successfully added a new player to the team.")
+</script>
+{% endif %} 
+
+<!-- Script that display message after creating new team -->
+{% if message1 %}
+<script>
+    alert("You have successfully added a new team.")
+</script>
+{% endif %} 
+
+<!-- Team Container -->
+<div class="w3-container w3-padding-64 w3-center" id="team">
+    <h2>IMG BASEBALL TEAMS</h2> 
+    <div class="w3-row"><br>
+        
+        {% for team in teams %} 
+            <div class="w3-quarter">
+                <img src="https://image.isu.pub/200501144557-265c1cb5bd58814f3ae80700bf019845/jpg/page_1.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
+                <h3><a href="{% url 'team' team %}" style="text-decoration: none;">{{ team }}</a></h3>
             </div>
-            {% if user.is_authenticated %}
-            <form action="{% url 'djangoapp:logout' %}" class="d-flex" method='POST'>
-                {% csrf_token %}
-                <a class="nav-link disabled" href="">Welcome Back <strong>{{ user }}</strong></a>
-                <div style="width: 15px;"></div>
-                <button class="btn btn-outline-primary" type="submit">Logout</button>
-            </form>
-            {% else %}
-            <form action="{% url 'djangoapp:login' %}" class="d-flex" method='POST'>
-                {% csrf_token %}
-                <input name='username' class="form-control me-2" type="text" placeholder="Username" aria-label="Search">
-                <div style="width: 15px;"></div>
-                <input name='password' class="form-control me-2" type="password" placeholder="Password"
-                    aria-label="Search">
-                <div style="width: 15px;"></div>
-                <button class="btn btn-outline-primary" type="submit">Login</button>
-                <div style="width: 15px;"></div>
-                <a href='{% url "djangoapp:register" %}' style="width: 200px;" class="btn btn-outline-primary"
-                    type="submit">Sign Up</a>
-            </form>
-            {% endif %}
-        </div>
-    </nav>
-
-    {% block body %}
-    {% endblock %}
-    {% if message %}
-    <div class="alert alert-danger" role="alert">
-        {{ message }}
+        {% endfor %} 
     </div>
-    {% endif %}
+</div>
 
-    <!--Add a dealer table here -->
+{% endblock %}
 
-</body>
 
-</html>
+
+

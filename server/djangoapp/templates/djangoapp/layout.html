@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>IMG Academy ReportApp</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/cb93dcb4e5.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="myPage">
+
+  <!-- Navbar -->
+  <div class="w3-top">
+    <div class="w3-bar w3-theme-d2 w3-left-align">
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2"
+        href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+      <a href="{% url 'index' %}"
+        class="w3-bar-item w3-button w3-teal"><strong>IMG</strong>Report<strong>App</strong></a>
+      {% if is_user %}
+      <button onclick="document.getElementById('id02').style.display='block'" class="w3-bar-item w3-button w3-hide-small w3-hover-white"><strong>New</strong>Players</button>
+      <button onclick="document.getElementById('id03').style.display='block'" class="w3-bar-item w3-button w3-hide-small w3-hover-white"><strong>New</strong>Team</button>
+      <a href="{% url 'logout' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white"><strong>Log</strong>Out</a>
+      {% endif %}
+    </div>
+
+    <!-- Navbar on small screens -->
+    {% if is_user %}
+    <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
+      <button onclick="document.getElementById('id02').style.display='block'" class="w3-bar-item w3-button"><strong>New</strong>Players</button>
+      <button onclick="document.getElementById('id03').style.display='block'" class="w3-bar-item w3-button"><strong>New</strong>Team</button>
+      <a href="{% url 'logout' %}" class="w3-bar-item w3-button"><strong>Log</strong>Out</a>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Image Header -->
+  <div class="w3-display-container w3-animate-opacity">
+    <img
+      src="https://global-uploads.webflow.com/5ef5480befd392489dacf544/5f9f5e5943de7e69a1339242_5f44a7398c0cdf460857e744_img-image.jpeg"
+      alt="boat" style="width:100%;min-height:350px;max-height:600px;">
+    <div class="w3-container w3-display-bottomleft w3-margin-bottom">
+    </div>
+  </div>
+
+  <!-- Coaches/Send-Report Modal 1 -->
+  <div id="id01" class="w3-modal">
+
+    <div class="w3-modal-content w3-container w3-card-4 w3-padding-16 w3-lightgray">
+
+      <h4 id="evaluation-name">Create Report for <strong id="sss"></strong>:</h4>
+
+      <div style="margin: 10px;">
+        <span onclick="document.getElementById('id01').style.display='none'"
+          class="w3-button w3-transparent w3-display-topright"><i id="delete-modal" class="fa fa-remove"></i></span>
+      </div>
+
+      <div class="w3-container">
+        <div style="margin-top: 20px; margin-bottom: 20px;">
+          <form class="w3-container w3-card-4 w3-padding-16 w3-white" action="{% url 'send-report' %}" method="post">
+            {% csrf_token %}
+            <div class="w3-section">
+              <label><strong>Defese:</strong></label>
+              <textarea id="defense" rows="5" class="w3-input" type="text" name="defense" required></textarea>
+            </div>
+
+            <div class="w3-section">
+              <label><strong>Hitting:</strong></label>
+              <textarea id="hitting" rows="5" class="w3-input" type="text" name="hitting" required></textarea>
+            </div>
+
+            <div class="w3-section">
+              <label><strong>Pitching:</strong></label>
+              <textarea id="pitching" rows="5" class="w3-input" type="text" name="pitching" required></textarea>
+            </div>
+
+            <div class="w3-section">
+              <label><strong>Character / Work Ethic:</strong></label>
+              <textarea id="character-work-ethic" rows="5" class="w3-input" type="text" name="character-work-ethic"
+                required></textarea>
+            </div>
+
+            <div style="display: none;" class="w3-section">
+              <input id="first" rows="5" class="w3-input" type="text" name="first" required></input>
+            </div>
+
+            <div style="display: none;" class="w3-section">
+              <input id="last" rows="5" class="w3-input" type="text" name="last" required></input>
+            </div>
+
+            <div style="display: none;" class="w3-section">
+              <input id="team" rows="5" class="w3-input" type="text" name="team" required></input>
+            </div>
+
+            <button id="send-report" type="submit" class="w3-button w3-right w3-theme">Send Report</button>
+
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Coaches/Add-Player Modal 2 -->
+  <div id="id02" class="w3-modal">
+
+    <div class="w3-modal-content w3-container w3-card-4 w3-padding-16 w3-lightgray">
+
+      <h4><strong>Add</strong>Player to a Team</h4>
+
+      <div style="margin: 10px;">
+        <span onclick="document.getElementById('id02').style.display='none'"
+          class="w3-button w3-transparent w3-display-topright"><i id="delete-modal" class="fa fa-remove"></i></span>
+      </div>
+
+      <div class="w3-container">
+        <div style="margin-top: 20px; margin-bottom: 20px;">
+          <form class="w3-container w3-card-4 w3-padding-16 w3-white" action="{% url 'add-player' %}" method="post">
+
+            {% csrf_token %}
+
+        {% block teams %}
+        {% endblock %}  
+
+        <div class="w3-section">
+          <label><strong>First Name:</strong></label>
+          <input id="create-first" rows="5" class="w3-input" type="text" name="create-first" required></input>
+        </div>
+
+        <div class="w3-section">
+          <label><strong>Last Name:</strong></label>
+          <input id="create-last" rows="5" class="w3-input" type="text" name="create-last" required></input>
+        </div>
+
+        <div class="w3-section">
+          <label><strong>Position:</strong></label>
+          <input id="create-position" rows="5" class="w3-input" type="text" name="create-position" required></input>
+        </div>
+
+        <button id="add-player" type="submit" class="w3-button w3-right w3-theme"><strong>Add</strong>Player</button>
+
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+  </div>
+
+  <!-- Coaches/Add-Team Modal 3 -->
+<div id="id03" class="w3-modal">
+
+    <div class="w3-modal-content w3-container w3-card-4 w3-padding-16 w3-lightgray">
+
+      <h4><strong>Create</strong>Team</h4>
+
+      <div style="margin: 10px;">
+        <span onclick="document.getElementById('id03').style.display='none'"
+          class="w3-button w3-transparent w3-display-topright"><i id="delete-modal" class="fa fa-remove"></i></span>
+      </div>
+
+      <div class="w3-container">
+        <div style="margin-top: 20px; margin-bottom: 20px;">
+          <form class="w3-container w3-card-4 w3-padding-16 w3-white" action="{% url 'add-team' %}" method="post">
+            
+            {% csrf_token %}
+
+          {% block NewTeams %}
+          {% endblock %}
+
+        <button id="add-team" type="submit" class="w3-button w3-right w3-theme"><strong>Create</strong>Team</button>
+
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+  </div>
+
+
+
+
+
+  {% block body %}
+  {% endblock %}
+
+
+
+
+
+  <!-- Image -->
+  <img
+    src="https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/IMG-Fieldhouse-10.jpg?itok=Whi8hHo9"
+    class="w3-image w3-greyscale-min" style="width:100%;">
+
+
+  <!-- Here is the JS Code for The Website -->
+  <script>
+
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+      document.addEventListener('click', (event) => {
+
+        const element = event.target;
+
+        if (element.id === 'send-report') {
+          name = document.querySelector('#sss').innerHTML;
+          msn = 'You have successfully sent a new report to ' + name
+          alert(msn);
+        };
+
+        if (element.id === 'create-report') {
+
+          document.querySelector('#defense').value = "";
+          document.querySelector('#hitting').value = "";
+          document.querySelector('#pitching').value = "";
+          document.querySelector('#character-work-ethic').value = "";
+          document.querySelector('#first').value = "";
+          document.querySelector('#last').value = "";
+          document.querySelector('#team').value = "";
+
+          const a = event.target.parentElement;
+          const b = a.parentElement;
+
+          player_name = b.querySelector('#player-name').innerHTML;
+          first = b.querySelector('#first').innerHTML;
+          last = b.querySelector('#last').innerHTML;
+          team = b.querySelector('#team').innerHTML;
+
+          document.querySelector('#sss').innerHTML = player_name;
+          document.querySelector('#first').value = first;
+          document.querySelector('#last').value = last;
+          document.querySelector('#team').value = team;
+        };
+
+      });
+
+    });
+
+    // Script for side navigation
+    function w3_open() {
+      var x = document.getElementById("mySidebar");
+      x.style.width = "300px";
+      x.style.paddingTop = "10%";
+      x.style.display = "block";
+    }
+
+    // Close side navigation
+    function w3_close() {
+      document.getElementById("mySidebar").style.display = "none";
+    }
+
+    // Used to toggle the menu on smaller screens when clicking on the menu button
+    function openNav() {
+      var x = document.getElementById("navDemo");
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+      } else {
+        x.className = x.className.replace(" w3-show", "");
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>

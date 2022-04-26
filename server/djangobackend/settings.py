@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ["nessyapp.mybluemix.net", 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'MyReport',
     'djangoapp.apps.DjangoappConfig',
     'django.contrib.admin',
     'django.contrib.auth',

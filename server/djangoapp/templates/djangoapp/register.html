@@ -1,0 +1,62 @@
+{% extends "MyReport/layout.html" %}
+
+
+{% block body %}
+
+
+<!-- Register Container -->
+<div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
+    <div class="w3-row">
+      <div class="w3-col m5">
+      <div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Register</span></div>
+        <h3><strong>IMG</strong>Report<strong>App</strong></h3>
+        <p><i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>  5650 Bollettieri Blvd, Bradenton, FL 34210</p>
+        <p><i class="fa fa-phone w3-text-teal w3-xlarge"></i>  (800) 872-6425</p>
+      </div>
+      <div class="w3-col m7">
+        <form class="w3-container w3-card-4 w3-padding-16 w3-white" action="{% url 'register' %}" method="post">
+            {% if message %}
+            <div>{{ message }}</div>
+            {% endif %}
+            {% csrf_token %}
+        <div class="w3-section">      
+          <label>Username</label>
+          <input class="w3-input" type="text" name="username" required>
+        </div> 
+        <div class="w3-section">      
+            <label>First Name</label>
+            <input class="w3-input" type="text" name="first" required>
+          </div>
+          <div class="w3-section">      
+            <label>Last Name</label>
+            <input class="w3-input" type="text" name="last" required>
+          </div>
+          <div class="w3-section">      
+            <label>Email Address</label>
+            <input class="w3-input" type="email" name="email" required>
+          </div> 
+        <div class="w3-section">      
+          <label>Password</label>
+          <input class="w3-input" type="password" name="password" required>
+        </div> 
+        <div class="w3-section">      
+            <label>Confirm Password</label>
+            <input class="w3-input" type="password" name="confirmation" required>
+          </div> 
+        <div>
+          <button type="submit" id="Sign-in"  class="w3-button w3-right w3-theme">Register</button> 
+        </div>
+        <p>Already have an account? <a href="{% url 'login' %}"><strong>Log In here.</strong></a></p>
+        <div>
+        </form> 
+        </div>
+    
+    
+      </div>
+    </div>
+  </div>
+
+
+
+
+{% endblock %}
