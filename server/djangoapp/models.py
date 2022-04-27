@@ -27,7 +27,7 @@
 # <HINT> Create a plain Python class `DealerReview` to hold review data
 
 
-from turtle import position
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.forms import CharField

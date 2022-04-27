@@ -13,7 +13,7 @@
 # Register models here
 
 
-from re import U
+
 from django.contrib import admin
 from .models import User, Positions, Players, Report, IMG_Teams
 
